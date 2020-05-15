@@ -1,0 +1,26 @@
+diff -urN lmbench3/src/disk.c lmbench3-bak/src/disk.c
+--- lmbench3/src/disk.c	2005-08-23 08:19:54.000000000 +0800
++++ lmbench3-bak/src/disk.c	2020-05-03 12:33:37.837715349 +0800
+@@ -289,9 +289,7 @@
+ seekto(int fd, uint64 off)
+ {
+ #ifdef	__linux__
+-	extern	loff_t llseek(int, loff_t, int);
+-
+-	if (llseek(fd, (loff_t)off, SEEK_SET) == (loff_t)-1) {
++	if (lseek(fd, (loff_t)off, SEEK_SET) == (loff_t)-1) {
+ 		return(-1);
+ 	}
+ 	return (0);
+diff -urN lmbench3/src/Makefile lmbench3-bak/src/Makefile
+--- lmbench3/src/Makefile	2005-08-23 08:19:54.000000000 +0800
++++ lmbench3-bak/src/Makefile	2020-05-03 12:33:32.148802834 +0800
+@@ -228,7 +228,7 @@
+ 	install install-target dist get edit get-e clean clobber \
+ 	share depend testmake
+ 
+-$O/lmbench : ../scripts/lmbench bk.ver
++$O/lmbench : ../scripts/lmbench 
+ 	rm -f $O/lmbench
+ 	sed -e "s/<version>/`cat bk.ver`/g" < ../scripts/lmbench > $O/lmbench
+ 	chmod +x $O/lmbench
