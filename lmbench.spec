@@ -2,7 +2,7 @@
 
 Name:    lmbench
 Version: 3
-Release: 1
+Release: 2
 Summary: Tools for Performance Analysis
 License: GPLv2
 URL:	 http://www.bitmover.com/lmbench/
@@ -10,8 +10,9 @@ Source0: http://www.bitmover.com/lmbench/%{name}%{version}.tar.gz
 
 Patch0: lmbench3-fix-llseek-and-remove-bk-in-Makefile.patch
 Patch1: lmbench3-add-HOWTO-to-indicate-howto-use-this-package.patch
+Patch2: Rpc-code-moved-from-glibc-to-libtirpc.patch 
 
-BuildRequires: 	gcc
+BuildRequires: gcc libtirpc-devel
 
 %description
 A userspace utility for testing the memory subsystem for faults. It's portable and should compile and work on any 32- or 64-bit Unix-like system. (Yes, even weird, proprietary Unices, and even Mac OS X.) For hardware developers, memtester can be told to test memory starting at a particular physical address as of memtester version 4.1.0.
@@ -20,6 +21,7 @@ A userspace utility for testing the memory subsystem for faults. It's portable a
 %setup -q -n %{name}%{version}/
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %make_build
@@ -56,6 +58,9 @@ install -m 0644 results/Makefile %{buildroot}/opt/%{name}/results
 /opt/%{name}/*
 
 %changelog
+* Wed Jul 15 2020 wangyue <wangyue92@huawei.com> - 3-2 
+- Fix rpc.h error.Rpc code moved from glibc to libtirpc.
+
 * Sun Mar 29 2020 Wei Xiong <myeuler@163.com>
 - Package init
 
