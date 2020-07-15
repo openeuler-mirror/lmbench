@@ -1,0 +1,42 @@
+From f13f0ffeb2f8901e3efa29072ac7935213ae72a6 Mon Sep 17 00:00:00 2001
+Date: Wed, 15 Jul 2020 10:14:33 +0800
+Subject: [PATCH] fix rpc.h error.Rpc code moved from glibc to libtirpc
+
+---
+ src/Makefile | 3 +++
+ src/bench.h  | 4 ++--
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/src/Makefile b/src/Makefile
+index 5737228..07004f3 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -58,6 +58,9 @@ SAMPLES=lmbench/Results/aix/rs6000 lmbench/Results/hpux/snake \
+ 	lmbench/Results/irix/indigo2 lmbench/Results/linux/pentium \
+ 	lmbench/Results/osf1/alpha lmbench/Results/solaris/ss20* 
+ 
++CFLAGS += -I/usr/include/tirpc
++LDFLAGS += -ltirpc
++CPPFLAGS += -I/usr/include/tirpc
+ COMPILE=$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
+ 
+ INCS =	bench.h lib_mem.h lib_tcp.h lib_udp.h stats.h timing.h
+diff --git a/src/bench.h b/src/bench.h
+index 8166408..69ed17b 100644
+--- a/src/bench.h
++++ b/src/bench.h
+@@ -35,9 +35,9 @@ typedef unsigned char bool_t;
+ #include        <sys/un.h>
+ #include        <sys/resource.h>
+ #define PORTMAP
+-#include	<rpc/rpc.h>
++#include	<tirpc/rpc/rpc.h>
+ #endif
+-#include	<rpc/types.h>
++#include	<tirpc/rpc/types.h>
+ 
+ #include 	<stdarg.h>
+ #ifndef HAVE_uint
+-- 
+2.23.0
+
