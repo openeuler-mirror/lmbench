@@ -1,0 +1,22 @@
+From 2e22baacb477afa4d3eb2af01778d09f0d09bf87 Mon Sep 17 00:00:00 2001
+From: zhangtao2020 <18066722603@163.com>
+Date: Sat, 20 Mar 2021 15:42:56 +0800
+Subject: [PATCH] add stack protect
+
+---
+ scripts/build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scripts/build b/scripts/build
+index 16a6600..b6770f4 100755
+--- a/scripts/build
++++ b/scripts/build
+@@ -249,4 +249,4 @@ rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+ if [ ! -d ${BINDIR} ]; then mkdir -p ${BINDIR}; fi
+ 
+ # now go ahead and build everything!
+-${MAKE} OS="${OS}" CC="${CC}" CFLAGS="${CFLAGS}" LDLIBS="${LDLIBS}" O="${BINDIR}" $*
++${MAKE} OS="${OS}" CC="${CC}" CFLAGS="${CFLAGS} -fstack-protector-strong" LDLIBS="${LDLIBS}" O="${BINDIR}" $*
+-- 
+2.30.0
+
