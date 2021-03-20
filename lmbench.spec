@@ -2,7 +2,7 @@
 
 Name:    lmbench
 Version: 3
-Release: 2
+Release: 3
 Summary: Tools for Performance Analysis
 License: GPLv2
 URL:	 http://www.bitmover.com/lmbench/
@@ -11,6 +11,7 @@ Source0: http://www.bitmover.com/lmbench/%{name}%{version}.tar.gz
 Patch0: lmbench3-fix-llseek-and-remove-bk-in-Makefile.patch
 Patch1: lmbench3-add-HOWTO-to-indicate-howto-use-this-package.patch
 Patch2: Rpc-code-moved-from-glibc-to-libtirpc.patch 
+Patch3: add-stack-protect.patch
 
 BuildRequires: gcc libtirpc-devel
 
@@ -22,6 +23,7 @@ A userspace utility for testing the memory subsystem for faults. It's portable a
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %make_build
@@ -58,6 +60,9 @@ install -m 0644 results/Makefile %{buildroot}/opt/%{name}/results
 /opt/%{name}/*
 
 %changelog
+* Fri Mar 19 2021 zhangtao <zhangtao221@huawei.com> - 3-3
+- add fstack-protector-strong flags
+
 * Wed Jul 15 2020 wangyue <wangyue92@huawei.com> - 3-2 
 - Fix rpc.h error.Rpc code moved from glibc to libtirpc.
 
