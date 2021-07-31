@@ -1,0 +1,9 @@
+diff -Nur lmbench3/scripts/build lmbench3_new/scripts/build
+--- lmbench3/scripts/build	2005-08-23 08:19:54.000000000 +0800
++++ lmbench3_new/scripts/build	2021-07-12 22:02:33.651649157 +0800
+@@ -249,4 +249,4 @@
+ if [ ! -d ${BINDIR} ]; then mkdir -p ${BINDIR}; fi
+ 
+ # now go ahead and build everything!
+-${MAKE} OS="${OS}" CC="${CC}" CFLAGS="${CFLAGS}" LDLIBS="${LDLIBS}" O="${BINDIR}" $*
++${MAKE} OS="${OS}" CC="${CC}" CFLAGS="${CFLAGS} -fstack-protector-strong" LDLIBS="${LDLIBS}" O="${BINDIR}" $*
