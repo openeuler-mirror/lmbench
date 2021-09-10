@@ -1,8 +1,6 @@
-%global debug_package %{nil}
-
 Name:    lmbench
 Version: 3
-Release: 3
+Release: 4
 Summary: Tools for Performance Analysis
 License: GPLv2
 URL:	 http://www.bitmover.com/lmbench/
@@ -12,6 +10,7 @@ Patch0: lmbench3-fix-llseek-and-remove-bk-in-Makefile.patch
 Patch1: lmbench3-add-HOWTO-to-indicate-howto-use-this-package.patch
 Patch2: Rpc-code-moved-from-glibc-to-libtirpc.patch
 Patch3: lmbench3-add-sp-security-compiler-option.patch
+Patch4: lmbench3-need-debug.patch
 
 BuildRequires: gcc libtirpc-devel
 
@@ -24,6 +23,7 @@ A userspace utility for testing the memory subsystem for faults. It's portable a
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %make_build
@@ -60,6 +60,9 @@ install -m 0644 results/Makefile %{buildroot}/opt/%{name}/results
 /opt/%{name}/*
 
 %changelog
+* Thu Stp 9 2021 Shaowei Cheng <chenshaowei3@huawei.com> - 3-4
+- need debug
+
 * Mon Jul 12 2021 stevending1st <stevending1st@163.com> - 3-3
 - Add SP security compiler option.
 
