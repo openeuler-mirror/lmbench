@@ -1,0 +1,22 @@
+From 8a9ba9910e58fb4d837eff51e18abd91dbc99488 Mon Sep 17 00:00:00 2001
+From: si-gui <245140120@qq.com>
+Date: Fri, 10 Sep 2021 23:42:26 +0800
+Subject: [PATCH] need debug
+
+---
+ scripts/build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scripts/build b/scripts/build
+index 200d58e..7be068d 100755
+--- a/scripts/build
++++ b/scripts/build
+@@ -249,4 +249,4 @@ rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+ if [ ! -d ${BINDIR} ]; then mkdir -p ${BINDIR}; fi
+
+ # now go ahead and build everything!
+-${MAKE} OS="${OS}" CC="${CC}" CFLAGS="${CFLAGS} -fstack-protector-strong" LDLIBS="${LDLIBS}" O="${BINDIR}" $*
++${MAKE} OS="${OS}" CC="${CC}" CFLAGS="${CFLAGS} -fstack-protector-strong -g" LDLIBS="${LDLIBS}" O="${BINDIR}" $*
+--
+2.30.0
+
