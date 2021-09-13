@@ -1,0 +1,36 @@
+From 37390e8321ce27b69642d3ac10b4dad46acb8ba4 Mon Sep 17 00:00:00 2001
+From: Guodong Xu <guodong.xu@linaro.org>
+Date: Tue, 20 Apr 2021 08:11:20 +0000
+Subject: [PATCH] lib_sched.c: fix a bug when custom pin on large system with
+ many CPUs
+
+Because mask/cpumask is based on 'unsigned long' type, so each of it can host
+64 CPUs. In this patch, cast the immediate integer '1' into type 'unsigned long'.
+Without this change, '1' is treated as 32-bit signed integer, and on a sysmtem
+with more than 32 CPUs, this can make pinning a task to CPU no. 32~63 fail.
+
+This patch fix this bug: on a system with 96 cores, this command failed to pin
+the two processes onto CPU 0 and 48.
+ $ LMBENCH_SCHED="CUSTOM_SPREAD 0 48" lat_pipe -W 1 -N 4
+
+Signed-off-by: Guodong Xu <guodong.xu@linaro.org>
+---
+ src/lib_sched.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/lib_sched.c b/src/lib_sched.c
+index fc5f82d..b10b97c 100644
+--- a/src/lib_sched.c
++++ b/src/lib_sched.c
+@@ -223,7 +223,7 @@ sched_pin(int cpu)
+ 		int	bit = i % (8 * sizeof(unsigned long));
+ 		if (cpumask[word] & (1 << bit)) {
+ 			if (j >= cpu) {
+-				mask[word] |= (1 << bit);
++				mask[word] |= ((unsigned long)1 << bit);
+ 				break;
+ 			}
+ 			j++;
+-- 
+2.17.1
+
