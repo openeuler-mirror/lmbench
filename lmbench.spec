@@ -60,7 +60,7 @@ install -m 0644 results/Makefile %{buildroot}/opt/%{name}/results
 /opt/%{name}/*
 
 %changelog
-* Thu Stp 9 2021 Shaowei Cheng <chenshaowei3@huawei.com> - 3-4
+* Thu Sep 9 2021 Shaowei Cheng <chenshaowei3@huawei.com> - 3-4
 - need debug
 
 * Mon Jul 12 2021 stevending1st <stevending1st@163.com> - 3-3
