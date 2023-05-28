@@ -1,0 +1,28 @@
+diff -uNr a/scripts/compiler b/scripts/compiler
+--- a/scripts/compiler	2005-08-23 08:19:55.000000000 +0800
++++ b/scripts/compiler	2023-05-22 15:32:05.912004000 +0800
+@@ -6,10 +6,10 @@
+ fi
+
+ if [ X$CC = X ]
+-then	CC=cc
++then	CC=clang
+ 	for p in `echo $PATH | sed 's/:/ /g'`
+ 	do	if [ -f $p/gcc ]
+-		then	CC=gcc
++		then	CC?=gcc
+ 		fi
+ 	done
+ fi
+diff -uNr a/src/Makefile b/src/Makefile
+--- a/src/Makefile	2005-08-23 08:19:54.000000000 +0800
++++ b/src/Makefile	2023-05-22 15:26:32.132101500 +0800
+@@ -111,7 +111,7 @@
+ 	$O/lib_sched.o
+
+ lmbench: $(UTILS)
+-	@env CFLAGS=-O MAKE="$(MAKE)" MAKEFLAGS="$(MAKEFLAGS)" CC="$(CC)" OS="$(OS)" ../scripts/build all
++	@env CFLAGS="-O -Wno-return-type" MAKE="$(MAKE)" MAKEFLAGS="$(MAKEFLAGS)" CC="$(CC)" OS="$(OS)" ../scripts/build all
+ 	-@env CFLAGS=-O MAKE="$(MAKE)" MAKEFLAGS="-k $(MAKEFLAGS)" CC="$(CC)" OS="$(OS)" ../scripts/build opt
+
+ results: lmbench
