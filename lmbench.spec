@@ -1,6 +1,6 @@
 Name:    lmbench
 Version: 3
-Release: 4
+Release: 5
 Summary: Tools for Performance Analysis
 License: GPLv2
 URL:	 http://www.bitmover.com/lmbench/
@@ -11,6 +11,7 @@ Patch1: lmbench3-add-HOWTO-to-indicate-howto-use-this-package.patch
 Patch2: Rpc-code-moved-from-glibc-to-libtirpc.patch
 Patch3: lmbench3-add-sp-security-compiler-option.patch
 Patch4: lmbench3-need-debug.patch
+Patch5: lmbench-fix-cc-and-clang-errors.patch
 
 BuildRequires: gcc libtirpc-devel
 
@@ -24,6 +25,7 @@ A userspace utility for testing the memory subsystem for faults. It's portable a
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %make_build
@@ -60,6 +62,9 @@ install -m 0644 results/Makefile %{buildroot}/opt/%{name}/results
 /opt/%{name}/*
 
 %changelog
+* Mon May 22 2023 Xiaoya Huang <huangxiaoya@iscas.ac.cn> - 3-5
+- Fix CC compiler support and clang building errors
+
 * Thu Stp 9 2021 Shaowei Cheng <chenshaowei3@huawei.com> - 3-4
 - need debug
 
